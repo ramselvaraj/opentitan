@@ -93,7 +93,7 @@ The top level of the JSON is a group containing the following keys:
 Key | Kind | Type | Description of Value
 --- | ---- | ---- | --------------------
 name | required | string | name of the component
-cip_id | required | int | unique comportable IP identifier
+cip_id | required | int | unique comportable IP identifier (see [`cip_id`](#cip_id))
 clocking | required | list or group | clocking for the device. Non split IPs have a list. Split IPs have a dict with a list per partition.
 bus_interfaces | required | list | bus interfaces for the device
 human_name | optional | string | human-readable name of the component
@@ -134,6 +134,18 @@ wakeup_list | optional | name list+ | list of peripheral wakeups
 countermeasures | optional | name list | list of countermeasures in this block
 features | optional | name list | list of functional features in this block
 memory | optional | list | list of memory definitions
+
+#### `cip_id`
+
+The `cip_id` ("comportable IP identifier") is an integer that identifies an IP block in the register definition.
+`regtool` requires it to be present and to be a valid integer (decimal or `0x`-prefixed hex, optionally quoted as in the existing `.hjson` files), and it is passed through unchanged as the `cip_id` entry of the JSON that reggen emits for the block.
+Nothing in reggen itself assigns any meaning to the value, and reggen does not check that it is unique across IPs.
+
+For IPs in this repository, the convention is that each IP uses its own number, taken from a sequence that is allocated by hand.
+When adding a new IP to the repository, pick a number that no other `cip_id` in `hw/ip/*/data/*.hjson` and `hw/ip_templates/*/data/*.hjson.tpl` uses (for example by running `grep -rh cip_id hw/ip hw/ip_templates | sort`).
+
+For an out-of-tree or experimental IP that is only run through `regtool`, any integer is accepted.
+The in-tree `bkdr_loader`, which is not a regular peripheral, uses `0xffff` as a placeholder.
 
 The basic structure of a register definition file is thus:
 
