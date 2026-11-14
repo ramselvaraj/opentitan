@@ -1712,10 +1712,10 @@ puts "Done applying constraints for top level"
 set_case_analysis 0 [get_pins u_padring/*_pad/attr_i?od_en*]
 
 #SPI propagation through flop
-set_sense -stop_propagation top_earlgrey/earlgrey_pd_main/u_spi_device/u_reg/u_control_mode/q_reg*/Q
-set_sense -stop_propagation top_earlgrey/earlgrey_pd_aon/u_pinmux/dio_pad_attr_q_reg_*__invert/Q
-set_sense -stop_propagation top_earlgrey/earlgrey_pd_aon/u_pinmux/dio_out_retreg_q_reg*/Q
-set_sense -stop_propagation top_earlgrey/earlgrey_pd_aon/u_pinmux/u_reg/u_dio_pad_sleep_status_en*/q_reg*/Q
+set_sense -type clock -stop_propagation top_earlgrey/earlgrey_pd_main/u_spi_device/u_reg/u_control_mode/q_reg*/Q
+set_sense -type clock -stop_propagation top_earlgrey/earlgrey_pd_aon/u_pinmux/dio_pad_attr_q_reg_*__invert/Q
+set_sense -type clock -stop_propagation top_earlgrey/earlgrey_pd_aon/u_pinmux/dio_out_retreg_q_reg*/Q
+set_sense -type clock -stop_propagation top_earlgrey/earlgrey_pd_aon/u_pinmux/u_reg/u_dio_pad_sleep_status_en*/q_reg*/Q
 
 set_false_path -from top_earlgrey/earlgrey_pd_aon/u_pinmux/u_pinmux_strap_sampling/u_prim_lc_sync_lc_dft_en/gen_flops_u_prim_flop_2sync/gen_generic_u_impl_generic/u_sync_2/gen_techlib_u_impl_techlib/gen_flops*_u_size_only_reg/CK -to [get_ports IO*]
 set_false_path -from top_earlgrey/earlgrey_pd_aon/u_pinmux/u_pinmux_strap_sampling/u_prim_lc_sender_pinmux_hw_debug_en/gen_flops_u_prim_flop/u_secure_anchor_flop/gen_techlib_u_impl_techlib/gen_flops*_u_size_only_reg/CK -to [get_ports IO*]
