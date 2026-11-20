@@ -153,7 +153,7 @@ module prim_subreg_arb
                                                             prim_mubi_pkg::MuBi12True));
       end else if (DW == 16) begin : gen_mubi16
         assign wr_data = prim_mubi_pkg::mubi16_and_hi(prim_mubi_pkg::mubi16_t'(de ? d : q),
-                                                      (we ? prim_mubi_pkg::mubi16_t'(wd) :
+                                                      (we ? prim_mubi_pkg::MuBi16False :
                                                             prim_mubi_pkg::MuBi16True));
       end else begin : gen_invalid_mubi
         $error("%m: Invalid width for MuBi");
